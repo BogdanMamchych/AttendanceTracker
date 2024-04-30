@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class Authentication_Service {
+    //Клас Authentication_Service відповідає за керування автентифікацією
 
     //Клієнтський ідентифікатор
     private static final String clientId = "8cbb4f6d-0b15-4073-8cb0-6e24bacdc73a";
