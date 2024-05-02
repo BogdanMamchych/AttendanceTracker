@@ -4,9 +4,13 @@
  */
 package com.example.AttendaceTracker.ui;
 
+import com.example.AttendaceTracker.model.User_Model;
 import com.example.AttendaceTracker.services.Authentication_Service;
 import com.example.AttendaceTracker.services.Greetings_Service;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Sign_In_Outlook_UI extends javax.swing.JFrame {
@@ -25,15 +29,25 @@ public class Sign_In_Outlook_UI extends javax.swing.JFrame {
         //Запуск функції входу в Outlook
         authenticationService.signInOutlook(codeTextField, result -> {
             if (result) {
-                //Якщо вдалося увійти
-                backButton.setEnabled(false);
-                getNewCodeButton.setEnabled(false);
-                //Привітання користувача, який увійшов
-                greetingsService.greeting(codeTextField);
-                super.dispose();
-                Main_UI mainMenu = new Main_UI();
-                mainMenu.setVisible(true);
-                //Перехід в головне меню
+                try {
+                    //Якщо вдалося увійти
+                    authenticationService.UserInfo();
+                    backButton.setEnabled(false);
+                    getNewCodeButton.setEnabled(false);
+                    //Привітання користувача, який увійшов
+                    greetingsService.greeting(codeTextField);
+                    super.dispose();
+                    Main_UI mainMenu = new Main_UI();
+                    //Встановлення повного імені(ім'я + прізвище) та
+                    // електронної пошти користувача
+                    String username = User_Model.getName() + User_Model.getSurname();
+                    mainMenu.setNameLabel(username);
+                    mainMenu.setEmailLabel(User_Model.getEmail());
+                    mainMenu.setVisible(true);
+                    //Перехід в головне меню
+                } catch (IOException ex) {
+                    messagesUi.showErrorMessage(ex.toString());
+                }
             } else {
                 //У разі відсутності з'єднання
                 greetingsService.connectingError(codeTextField);
