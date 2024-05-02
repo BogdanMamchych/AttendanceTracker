@@ -4,17 +4,25 @@
  */
 package com.example.AttendaceTracker.ui;
 
-/**
- *
- * @author boiik
- */
 public class Main_UI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Main_UI
-     */
+    //Клас Main_UI відповідає за вікно головного меню та надання
+    // можливості користувачу переглядати розклад на сьогодні,
+    // натисканням кнопки "Перегляд списку учасників" відкрити
+    // вікно перегляду учасників, перегляд часу та натисканням
+    // кнопки "Зчитати учасників" перейти до початку процесу зчитування
+    
     public Main_UI() {
         initComponents();
+    }
+    
+    //Функція встановлення повного імені користувача
+    public void setNameLabel(String text) {
+        fullNameLabel.setText(text);
+    }
+    
+    //Функція встановлення електронної пошти користувача
+    public void setEmailLabel(String text) {
+        emailLabel.setText(text);
     }
 
     /**
@@ -27,52 +35,98 @@ public class Main_UI extends javax.swing.JFrame {
     private void initComponents() {
 
         titleNameLabel = new javax.swing.JLabel();
-        nameLabel = new javax.swing.JLabel();
+        fullNameLabel = new javax.swing.JLabel();
         titleEmailLabel = new javax.swing.JLabel();
         emailLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        participantsReadButton = new javax.swing.JButton();
+        readParticipantsButton = new javax.swing.JButton();
+        showParticipantsListButton = new javax.swing.JButton();
+        titleDisciplineLabel = new javax.swing.JLabel();
+        disciplineComboBox = new javax.swing.JComboBox<>();
+        titleDateLabel = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
+        titleTimeLabel = new javax.swing.JLabel();
+        timeLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        dailyScheludeTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Головне меню");
 
-        titleNameLabel.setText("ПІБ:");
+        titleNameLabel.setText("Повне ім'я:");
 
-        nameLabel.setText("j");
+        fullNameLabel.setText("j");
 
         titleEmailLabel.setText("Email:");
 
         emailLabel.setText("j");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        readParticipantsButton.setText("Зчитати учасників");
 
-        participantsReadButton.setText("Зчитати учасників");
+        showParticipantsListButton.setText("Перегляд списку учасників");
+        showParticipantsListButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showParticipantsListButtonActionPerformed(evt);
+            }
+        });
+
+        titleDisciplineLabel.setText("Дисципліна:");
+
+        titleDateLabel.setText("Дата:");
+
+        dateLabel.setText("j");
+
+        titleTimeLabel.setText("Час:");
+
+        timeLabel.setText("j");
+
+        dailyScheludeTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(dailyScheludeTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(titleEmailLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(titleNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fullNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(titleDateLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(titleTimeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(titleDisciplineLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(titleNameLabel)
+                                .addComponent(showParticipantsListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(disciplineComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(participantsReadButton)
+                                .addComponent(readParticipantsButton)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -81,31 +135,69 @@ public class Main_UI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleNameLabel)
-                    .addComponent(nameLabel))
+                    .addComponent(fullNameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleEmailLabel)
                     .addComponent(emailLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleDateLabel)
+                    .addComponent(dateLabel)
+                    .addComponent(titleTimeLabel)
+                    .addComponent(timeLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showParticipantsListButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(participantsReadButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(readParticipantsButton)
+                    .addComponent(titleDisciplineLabel)
+                    .addComponent(disciplineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void showParticipantsListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showParticipantsListButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showParticipantsListButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
+    //Опис компонентів вікна:
+    //dailyScheduleTable - таблиця розкладу на один день(сьогодні);
+    //dataLabel - відображення дати;
+    //disciplineComboBox - випадаючий список дисциплін;
+    //emailLabel - відображення електронної пошти користувача;
+    //jScrollPane2 - прокрутка для таблиці розкладу;
+    //fullNameLabel - повне ім'я користувача;
+    //readParticipantsButton - кнопка "Зчитати учасників";
+    //showParticipantsListButtton - кнопка "Перегляд списку учасників";
+    //timeLabel - відображення часу;
+    //titleDatelLabel - текст "Дата:";
+    //titleDisciplineLabel - текст "Дисципліна";
+    //titleEmailLabel - текст "Email:";
+    //titleNameLabel - текст "Повне ім'я:";
+    //titleTimeLabel - текст "Час:";
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable dailyScheludeTable;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JComboBox<String> disciplineComboBox;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JButton participantsReadButton;
+    private javax.swing.JLabel fullNameLabel;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton readParticipantsButton;
+    private javax.swing.JButton showParticipantsListButton;
+    private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel titleDateLabel;
+    private javax.swing.JLabel titleDisciplineLabel;
     private javax.swing.JLabel titleEmailLabel;
     private javax.swing.JLabel titleNameLabel;
+    private javax.swing.JLabel titleTimeLabel;
     // End of variables declaration//GEN-END:variables
 }
