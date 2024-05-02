@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 
 public class Sign_In_Outlook_UI extends javax.swing.JFrame {
-    //Клас Sign_In_Outlook_UI відповідає за відображення вікна входу в Outlook,
+    //Клас Sign_In_Outlook_UI відповідає вікно входу в Outlook,
     // надання можливості користувачу отримати код, отримати новий код
     // та повернення до вікна вибору способу входу
     
@@ -157,11 +157,11 @@ public class Sign_In_Outlook_UI extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     //Опис компонентів вікна:
-    //backButton - Кнопка "Назад";
-    //codeTextField - Текстовий поле для відображення коду, повідомлення про
+    //backButton - кнопка "Назад";
+    //codeTextField - текстовий поле для відображення коду, повідомлення про
     // відсутність з'єднання та/або повідомлення "Ласкаво просимо" після входу;
-    //getNewCodeButton - Кнопка "Отримати новий код";
-    //jLabel1 - Текст "Для входу в Outlook, введіть код:"
+    //getNewCodeButton - кнопка "Отримати новий код";
+    //jLabel1 - текст "Для входу в Outlook, введіть код:"
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JTextField codeTextField;
