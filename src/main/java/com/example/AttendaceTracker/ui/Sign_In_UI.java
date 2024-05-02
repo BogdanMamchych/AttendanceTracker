@@ -63,14 +63,10 @@ public class Sign_In_UI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        try {
-            Get_Code_UI getCode = new Get_Code_UI();
-            getCode.pack();
-            getCode.setVisible(true);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(Sign_In_UI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super.dispose();
+        Sign_In_Outlook_UI getCode = new Sign_In_Outlook_UI();
+        getCode.pack();
+        getCode.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
