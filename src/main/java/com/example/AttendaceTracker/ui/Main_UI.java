@@ -4,7 +4,10 @@
  */
 package com.example.AttendaceTracker.ui;
 
-public class Main_UI extends javax.swing.JFrame {
+import com.example.AttendaceTracker.dto.User_DTO;
+import com.example.AttendaceTracker.services.Time_Interface;
+
+public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     //Клас Main_UI відповідає за вікно головного меню та надання
     // можливості користувачу переглядати розклад на сьогодні,
     // натисканням кнопки "Перегляд списку учасників" відкрити
@@ -16,14 +19,28 @@ public class Main_UI extends javax.swing.JFrame {
     }
     
     //Функція встановлення повного імені користувача
-    public void setNameLabel(String text) {
-        fullNameLabel.setText(text);
+    public void setFullName() {
+        fullNameLabel.setText(User_DTO.getFullName());
     }
     
     //Функція встановлення електронної пошти користувача
-    public void setEmailLabel(String text) {
-        emailLabel.setText(text);
+    public void setEmail() {
+        emailLabel.setText(User_DTO.getEmail());
     }
+    
+    //Функція встановлення дати
+    @Override
+    public void setDate(String date) {
+        dateLabel.setText(date);
+    }
+    
+    //Функція встановлення часу
+    @Override
+    public void setTime(String time) {
+        timeLabel.setText(time);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
