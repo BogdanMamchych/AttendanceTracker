@@ -4,64 +4,63 @@
  */
 package com.example.AttendaceTracker.ui;
 
-import com.example.AttendaceTracker.model.User_Model;
-import com.example.AttendaceTracker.services.Authentication_Service;
+import com.example.AttendaceTracker.services.Outlook_Authentication_Service;
 import com.example.AttendaceTracker.services.Greetings_Service;
+import com.example.AttendaceTracker.services.Time_Service;
+import com.example.AttendaceTracker.dto.User_DTO;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class Sign_In_Outlook_UI extends javax.swing.JFrame {
     //Клас Sign_In_Outlook_UI відповідає вікно входу в Outlook,
     // надання можливості користувачу отримати код, отримати новий код
     // та повернення до вікна вибору способу входу
-    
+
     //Об'єкт для викликання входу
-    Authentication_Service authenticationService = new Authentication_Service();
-    //Об'єкт для виклику повідомлень
-    Messages_UI messagesUi = new Messages_UI();
+    private final Outlook_Authentication_Service authenticationService = new Outlook_Authentication_Service();
 
     //Функція-стартер входу в Outlook
     private void startSignInOutlook() throws MalformedURLException {
         Greetings_Service greetingsService = new Greetings_Service();
         //Запуск функції входу в Outlook
-        authenticationService.signInOutlook(codeTextField, result -> {
+        authenticationService.outlookSignIn(codeTextField, result -> {
             if (result) {
                 try {
                     //Якщо вдалося увійти
                     authenticationService.UserInfo();
-                    backButton.setEnabled(false);
-                    getNewCodeButton.setEnabled(false);
-                    //Привітання користувача, який увійшов
-                    greetingsService.greeting(codeTextField);
-                    super.dispose();
-                    Main_UI mainMenu = new Main_UI();
-                    //Встановлення повного імені(ім'я + прізвище) та
-                    // електронної пошти користувача
-                    String username = User_Model.getName() + User_Model.getSurname();
-                    mainMenu.setNameLabel(username);
-                    mainMenu.setEmailLabel(User_Model.getEmail());
-                    mainMenu.setVisible(true);
-                    //Перехід в головне меню
+                    authenticationService.getWhitelistProperties();
+                    if (authenticationService.emailValidate(User_DTO.getEmail())) {
+                        backButton.setEnabled(false);
+                        getNewCodeButton.setEnabled(false);
+                        Main_UI mainMenu = new Main_UI();
+                        mainMenu.setFullName();
+                        mainMenu.setEmail();
+
+                        Time_Service timeService = new Time_Service(mainMenu);
+                        timeService.startDateTime();
+
+                        //Привітання користувача, який увійшов
+                        greetingsService.greeting(codeTextField);
+                        super.dispose();
+
+                        mainMenu.setVisible(true);
+                        //Перехід в головне меню
+                    } else {
+                        Messages_UI.showErrorMessage("Відмова в доступі. Електронна пошта повинна мати закінчення @ust.edu.ua");
+                    }
                 } catch (IOException ex) {
-                    messagesUi.showErrorMessage(ex.toString());
+                    Messages_UI.showErrorMessage(ex.toString());
                 }
-            } else {
-                //У разі відсутності з'єднання
-                greetingsService.connectingError(codeTextField);
-                //Повідомлення про відсутність з'єдання
             }
         });
     }
-    
+
     public Sign_In_Outlook_UI() {
         try {
             initComponents();
             startSignInOutlook();
         } catch (MalformedURLException ex) {
-            messagesUi.showErrorMessage(ex.toString());
+            Messages_UI.showErrorMessage(ex.toString());
         }
     }
 
@@ -143,7 +142,7 @@ public class Sign_In_Outlook_UI extends javax.swing.JFrame {
             startSignInOutlook();
         } catch (MalformedURLException ex) {
             //У разі помилки
-            messagesUi.showErrorMessage(ex.toString());
+            Messages_UI.showErrorMessage(ex.toString());
         }
     }//GEN-LAST:event_getNewCodeButtonActionPerformed
 
