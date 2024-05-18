@@ -4,8 +4,11 @@
  */
 package com.example.AttendaceTracker.ui;
 
+import com.example.AttendaceTracker.dto.Subject_List_DTO;
 import com.example.AttendaceTracker.dto.User_DTO;
+import com.example.AttendaceTracker.services.Schedule_Service;
 import com.example.AttendaceTracker.services.Time_Interface;
+import javax.swing.table.DefaultTableModel;
 
 public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     //Клас Main_UI відповідає за вікно головного меню та надання
@@ -16,6 +19,7 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     
     public Main_UI() {
         initComponents();
+        Subject_List_DTO.sendToComboBox(disciplineComboBox);
     }
     
     //Функція встановлення повного імені користувача
@@ -38,6 +42,11 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     @Override
     public void setTime(String time) {
         timeLabel.setText(time);
+    }
+    
+    //Функція заповнення таблиці розкладу
+    public void fillTable() {
+        Schedule_Service.createTableModel(dailyScheludeTable);
     }
     
     
@@ -78,6 +87,11 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
         emailLabel.setText("j");
 
         readParticipantsButton.setText("Зчитати учасників");
+        readParticipantsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readParticipantsButtonActionPerformed(evt);
+            }
+        });
 
         showParticipantsListButton.setText("Перегляд списку учасників");
         showParticipantsListButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,73 +110,63 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
 
         timeLabel.setText("j");
 
-        dailyScheludeTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
         jScrollPane2.setViewportView(dailyScheludeTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(titleEmailLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(titleDisciplineLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(titleNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fullNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(disciplineComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(readParticipantsButton))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(titleDateLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(titleTimeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(titleDisciplineLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(showParticipantsListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(177, 177, 177)
+                                .addComponent(showParticipantsListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(disciplineComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(titleNameLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(readParticipantsButton)))))
+                                .addComponent(fullNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(titleEmailLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(titleNameLabel)
-                    .addComponent(fullNameLabel))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fullNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(titleEmailLabel)
+                        .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleEmailLabel)
-                    .addComponent(emailLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleDateLabel)
-                    .addComponent(dateLabel)
-                    .addComponent(titleTimeLabel)
-                    .addComponent(timeLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(timeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(titleDateLabel)
+                        .addComponent(dateLabel)
+                        .addComponent(titleTimeLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,6 +185,12 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     private void showParticipantsListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showParticipantsListButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_showParticipantsListButtonActionPerformed
+
+    //Кнопка "Зчитати учасників"
+    private void readParticipantsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readParticipantsButtonActionPerformed
+        Receive_Type_Selection_UI receiveTypeSelectionUi = new Receive_Type_Selection_UI();
+        receiveTypeSelectionUi.setVisible(true);
+    }//GEN-LAST:event_readParticipantsButtonActionPerformed
 
     /**
      * @param args the command line arguments

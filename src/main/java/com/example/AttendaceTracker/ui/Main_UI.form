@@ -24,43 +24,43 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="titleEmailLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleDisciplineLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="emailLabel" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="titleNameLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="fullNameLabel" min="-2" pref="294" max="-2" attributes="0"/>
+                      <Component id="disciplineComboBox" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="readParticipantsButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="titleDateLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dateLabel" min="-2" pref="235" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="titleTimeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="timeLabel" pref="57" max="32767" attributes="0"/>
+                      <Component id="timeLabel" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="titleDisciplineLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
                               <Component id="showParticipantsListButton" min="-2" pref="221" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="disciplineComboBox" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="titleNameLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="readParticipantsButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="fullNameLabel" min="-2" pref="226" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="titleEmailLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="emailLabel" min="-2" pref="214" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -71,21 +71,22 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="titleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fullNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="titleNameLabel" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="fullNameLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="titleEmailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="emailLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="titleEmailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="titleDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="titleTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="timeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="timeLabel" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="titleDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="155" max="-2" attributes="0"/>
@@ -127,6 +128,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x417;&#x447;&#x438;&#x442;&#x430;&#x442;&#x438; &#x443;&#x447;&#x430;&#x441;&#x43d;&#x438;&#x43a;&#x456;&#x432;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="readParticipantsButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="showParticipantsListButton">
       <Properties>
@@ -174,11 +178,6 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JTable" name="dailyScheludeTable">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="0" rowCount="4"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
