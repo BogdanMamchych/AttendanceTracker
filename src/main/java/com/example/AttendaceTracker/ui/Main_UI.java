@@ -7,49 +7,127 @@ package com.example.AttendaceTracker.ui;
 import com.example.AttendaceTracker.dto.Subject_List_DTO;
 import com.example.AttendaceTracker.dto.User_DTO;
 import com.example.AttendaceTracker.services.Schedule_Service;
+import com.example.AttendaceTracker.services.Subject_Service;
 import com.example.AttendaceTracker.services.Time_Interface;
-import javax.swing.table.DefaultTableModel;
+import com.example.AttendaceTracker.services.Time_Service;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class Main_UI extends javax.swing.JFrame implements Time_Interface{
+public class Main_UI extends javax.swing.JFrame implements Time_Interface {
     //Клас Main_UI відповідає за вікно головного меню та надання
     // можливості користувачу переглядати розклад на сьогодні,
     // натисканням кнопки "Перегляд списку учасників" відкрити
     // вікно перегляду учасників, перегляд часу та натисканням
     // кнопки "Зчитати учасників" перейти до початку процесу зчитування
-    
+
+    private static ScheduledExecutorService scheduler;
+
     public Main_UI() {
         initComponents();
-        Subject_List_DTO.sendToComboBox(disciplineComboBox);
+
     }
-    
+
     //Функція встановлення повного імені користувача
     public void setFullName() {
         fullNameLabel.setText(User_DTO.getFullName());
     }
-    
+
     //Функція встановлення електронної пошти користувача
     public void setEmail() {
         emailLabel.setText(User_DTO.getEmail());
     }
-    
+
     //Функція встановлення дати
     @Override
     public void setDate(String date) {
         dateLabel.setText(date);
     }
-    
+
     //Функція встановлення часу
     @Override
     public void setTime(String time) {
         timeLabel.setText(time);
     }
-    
+
     //Функція заповнення таблиці розкладу
-    public void fillTable() {
-        Schedule_Service.createTableModel(dailyScheludeTable);
+    public static void fillTable() {
+        Schedule_Service.fillTable(dailyScheludeTable);
+    }
+
+    //Функція запуску оновлення розкладу
+    public static void startScheduleUpdate() {
+        //Створення планувальника для виконання завдань з використанням одного потока
+        scheduler = Executors.newScheduledThreadPool(1);
+
+        //Створення об'єкту для повторного виконання функції
+        Runnable updateTask = () -> {
+            fillTable();
+        };
+
+        try {
+            //Оновлення моделі з частотою 1 раз на секунду
+            scheduler.scheduleAtFixedRate(updateTask, 0, 2, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            //У разі помилки:
+            //Виведення повідомлення про помилку
+            Messages_UI.showErrorMessage(e.toString());
+        }
+    }
+
+    //Функція запуску оновлення розкладу
+    public static void stopDateTime() {
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+            try {
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                    scheduler.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                scheduler.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
     }
     
-    
+    //Функція налаштування сервісів головного меню
+    public boolean initializeMainMenuServices() {
+        // Отримання даних для розкладу
+        String res_getData = Schedule_Service.getData();
+        if (res_getData.equals("successful")) {
+            // Ініціалізація сервісу розкладу
+            Schedule_Service.init();
+            // Ініціалізація сервісу предметів
+            Subject_Service.init();
+
+            // Отримання даних предметів
+            if (Subject_Service.recieveSubjectData().equals("successful")) {
+                // Перетворення отриманих даних у DTO (Data Transfer Object)
+                Subject_Service.toDTO();
+                // Відправка даних предметів у випадаючий список
+                Subject_List_DTO.sendToComboBox(disciplineComboBox);
+                // Запуск оновлення розкладу
+                startScheduleUpdate();
+                // Встановлення повного імені користувача
+                setFullName();
+                // Встановлення email користувача
+                setEmail();
+                // Встановлення слухача часу для Time_Service
+                Time_Service.setTimeListener(this);
+                // Запуск сервісу часу
+                Time_Service.startDateTime();
+                return true;
+            } else {
+                // Показ повідомлення про помилку, якщо не вдалося отримати дані предметів
+                Messages_UI.showErrorMessage("Вам потрібно додати ваші предмети в базу даних");
+                return false;
+            }
+        } else {
+            // Показ повідомлення про помилку, якщо не вдалося отримати дані розкладу
+            Messages_UI.showErrorMessage(res_getData);
+            return false;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -182,6 +260,7 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Кнопки "Перегляд списку учасників"
     private void showParticipantsListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showParticipantsListButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_showParticipantsListButtonActionPerformed
@@ -195,7 +274,6 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     /**
      * @param args the command line arguments
      */
-
     //Опис компонентів вікна:
     //dailyScheduleTable - таблиця розкладу на один день(сьогодні);
     //dataLabel - відображення дати;
@@ -212,7 +290,7 @@ public class Main_UI extends javax.swing.JFrame implements Time_Interface{
     //titleNameLabel - текст "Повне ім'я:";
     //titleTimeLabel - текст "Час:";
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable dailyScheludeTable;
+    private static javax.swing.JTable dailyScheludeTable;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JComboBox<String> disciplineComboBox;
     private javax.swing.JLabel emailLabel;
