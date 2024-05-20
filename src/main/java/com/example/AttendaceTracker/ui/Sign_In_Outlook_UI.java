@@ -8,6 +8,9 @@ import com.example.AttendaceTracker.services.Outlook_Authentication_Service;
 import com.example.AttendaceTracker.services.Greetings_Service;
 import com.example.AttendaceTracker.services.Time_Service;
 import com.example.AttendaceTracker.dto.User_DTO;
+import com.example.AttendaceTracker.services.Database_Service;
+import com.example.AttendaceTracker.services.Schedule_Service;
+import com.example.AttendaceTracker.services.Subject_Service;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -29,22 +32,21 @@ public class Sign_In_Outlook_UI extends javax.swing.JFrame {
                     //Якщо вдалося увійти
                     authenticationService.UserInfo();
                     authenticationService.getWhitelistProperties();
-                    if (authenticationService.emailValidate(User_DTO.getEmail())) {
-                        backButton.setEnabled(false);
-                        getNewCodeButton.setEnabled(false);
-                        Main_UI mainMenu = new Main_UI();
-                        mainMenu.setFullName();
-                        mainMenu.setEmail();
-
-                        Time_Service timeService = new Time_Service(mainMenu);
-                        timeService.startDateTime();
-
-                        //Привітання користувача, який увійшов
-                        greetingsService.greeting(codeTextField);
-                        super.dispose();
-
-                        mainMenu.setVisible(true);
-                        //Перехід в головне меню
+                    if (authenticationService.emailValidate()) {
+                        String res = authenticationService.setUserData();
+                        if (res.equals("successfull")) {
+                            //Привітання користувача, який увійшов
+                            Main_UI mainMenu = new Main_UI();
+                            if (mainMenu.initializeMainMenuServices()) {
+                                backButton.setEnabled(false);
+                                getNewCodeButton.setEnabled(false);
+                                greetingsService.greeting(codeTextField);
+                                super.dispose();
+                                mainMenu.setVisible(true);
+                            }
+                        } else {
+                            Messages_UI.showErrorMessage(res);
+                        }
                     } else {
                         Messages_UI.showErrorMessage("Відмова в доступі. Електронна пошта повинна мати закінчення @ust.edu.ua");
                     }
